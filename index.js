@@ -2,6 +2,7 @@ import express from 'express'
 
 // Routes
 import userRoutes from './routes/userRoutes.js'
+import postRoutes from './routes/postRoutes.js'
 
 // Database Connection
 import connectDB from './models/connection/connection.js'
@@ -31,7 +32,7 @@ app.use(cookieParser())
 
 // Routes
 app.use('/users', userRoutes)
-
+app.use('/posts', postRoutes)
 
 // Server Listen
 app.listen(process.env.PORT, () => {

@@ -1,7 +1,7 @@
 import express from 'express'
 
 // Controllers
-import { followUser, getUserProfile, loginUser, logoutUser, signupUser, unfollowUser, updateUser } from '../controller/userController.js'
+import { followUser, getUserProfile, loginUser, logoutUser, signupUser, updateUser } from '../controller/userController.js'
 import protectedRoute from '../middlewares/protectedRoute.js'
 
 const router = express()
