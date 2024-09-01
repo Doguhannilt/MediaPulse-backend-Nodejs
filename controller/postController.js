@@ -83,7 +83,7 @@ export const likeAndUnLikePost = async (req, res) => {
         }
 
         const userLikedPost = post.likes.includes(userId)
-    
+
         if (userLikedPost) {
             await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } }, { new: true })
             res.status(200).json({ message: 'Post unliked successfully' })
@@ -92,7 +92,46 @@ export const likeAndUnLikePost = async (req, res) => {
             res.status(200).json({ message: 'Post liked successfully' })
         }
 
-        
+
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' })
+        console.log(error)
+    }
+}
+
+export const replyPost = async (req, res) => {
+    try {
+        const { text } = req.body
+        const { id: postId } = req.params
+        const userId = req.user._id
+        const userProfilePic = req.user.profilePic
+        const username = req.user.username
+
+        if(!text) {
+            return res.status(400).json({ message: 'Text is required' })
+        }
+
+        if(text.length < 5 && text.length > 0 && text.length !== 0) {
+            return res.status(400).json({ message: 'Text must be at least 5 characters' })
+        }
+
+        const post = await Post.findById(postId)
+
+        if(!post) {
+            return res.status(400).json({ message: 'Post not found' })
+        }   
+
+        const newReply = {
+            text,
+            postedBy: userId,
+            userProfilePic,
+            username
+        }
+
+        post.replies.push(newReply)
+        await post.save()
+
+        res.status(200).json({ message: 'Reply posted successfully' })
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' })
         console.log(error)
