@@ -4,7 +4,7 @@
 **MediaPulse-backend** is a social media backend application built using Node.js and Express. It provides a range of functionalities for user management and post handling, allowing you to create, update, and interact with posts and user profiles.
 
 <p align="center">
-  <img src="https://w7.pngwing.com/pngs/956/695/png-transparent-mongodb-original-wordmark-logo-icon.png" alt="MongoDB" width="150"/>
+  <img src="https://github.com/mongodb-js/leaf/blob/master/dist/mongodb-leaf_128x128.png" alt="MongoDB" width="150"/>
   <img src="https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/jsonwebtokens.svg" alt="JWT" width="150"/>
   <img src="https://nodejs.org/static/images/logo.svg" alt="Node.js" width="200"/>
 </p>
