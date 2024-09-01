@@ -157,4 +157,34 @@ export const followUser = async (req, res) => {
     }
 }
 
-export const unfollowUser = async (req, res) => {}
+export const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { name, username, email, profilePic, bio } = req.body
+        const user = await User.findById(id)
+        if(!user) {
+            return res.status(400).json({ message: 'User not found' })
+        }
+        if(name) {
+            user.name = name
+        }
+        if(username) {
+            user.username = username
+        }
+        if(email) {
+            user.email = email
+        }
+        if(profilePic) {
+            user.profilePic = profilePic
+        }
+        if(bio) {
+            user.bio = bio
+        }
+        await user.save()
+        res.status(200).json({ message: 'User updated successfully' })
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' })
+        console.log(error)
+    }
+}
+
