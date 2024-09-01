@@ -1,5 +1,8 @@
 import express from 'express'
 
+// Routes
+import userRoutes from './routes/userRoutes.js'
+
 // Database Connection
 import connectDB from './models/connection/connection.js'
 
@@ -27,11 +30,7 @@ app.use(cookieParser())
 
 
 // Routes
-
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+app.use('/users', userRoutes)
 
 
 // Server Listen
