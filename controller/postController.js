@@ -137,3 +137,22 @@ export const replyPost = async (req, res) => {
         console.log(error)
     }
 }
+
+export const getAllPosts = async (req, res) => {
+    try {
+        const userId = req.user._id
+        const user = await User.findById(userId)
+        if (!user) {
+            return res.status(400).json({ message: 'User not found' })
+        }
+
+        const following = user.following
+        const feedPosts = await Post.find({ postedBy: { $in: following } })
+
+
+        res.status(200).json(feedPosts)
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' })
+        console.log(error)
+    }
+}

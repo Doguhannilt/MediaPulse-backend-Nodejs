@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPost, deletePost, getPost, likeAndUnLikePost, replyPost } from '../controller/postController.js'
+import { createPost, deletePost, getAllPosts, getPost, likeAndUnLikePost, replyPost } from '../controller/postController.js'
 import protectedRoute from '../middlewares/protectedRoute.js'
 
 const router = express.Router()
@@ -24,4 +24,8 @@ router
 router
     .post('/reply/:id', protectedRoute, replyPost)
 
+router
+    .get('/getFeeds', protectedRoute, getAllPosts)
+
+    
 export default router
