@@ -1,7 +1,7 @@
 import express from 'express'
 
 // Controllers
-import { loginUser, signupUser } from '../controller/userController.js'
+import { loginUser, logoutUser, signupUser } from '../controller/userController.js'
 
 const router = express()
 
@@ -14,6 +14,10 @@ router
 router
     .post('/login', loginUser  )
     
+
+// users/logout ENDPOINT
+router
+    .post('/logout', logoutUser)
 
 
 
