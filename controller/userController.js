@@ -162,7 +162,7 @@ export const updateUser = async (req, res) => {
         const { id } = req.params
         const { name, username, email, profilePic, bio } = req.body
         const user = await User.findById(id)
-        
+
         if(req.params.id !== req.user._id) {
             return res.status(401).json({ message: 'Unauthorized' })
         }
@@ -187,6 +187,20 @@ export const updateUser = async (req, res) => {
         }
         await user.save()
         res.status(200).json({ message: 'User updated successfully' })
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' })
+        console.log(error)
+    }
+}
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const { id } = req.params
+        const user = await User.findById(id).select('-password')
+        if(!user) {
+            return res.status(400).json({ message: 'User not found' })
+        }
+        res.status(200).json(user)
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' })
         console.log(error)
