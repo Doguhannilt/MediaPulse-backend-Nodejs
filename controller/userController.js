@@ -162,6 +162,11 @@ export const updateUser = async (req, res) => {
         const { id } = req.params
         const { name, username, email, profilePic, bio } = req.body
         const user = await User.findById(id)
+        
+        if(req.params.id !== req.user._id) {
+            return res.status(401).json({ message: 'Unauthorized' })
+        }
+
         if(!user) {
             return res.status(400).json({ message: 'User not found' })
         }
