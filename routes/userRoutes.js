@@ -1,13 +1,18 @@
 import express from 'express'
 
 // Controllers
-import { signupUser } from '../controller/userController.js'
+import { loginUser, signupUser } from '../controller/userController.js'
 
 const router = express()
 
 // users/signup ENDPOINT
 router
     .post('/signup', signupUser  )
+
+
+// users/login ENDPOINT
+router
+    .post('/login', loginUser  )
     
 
 

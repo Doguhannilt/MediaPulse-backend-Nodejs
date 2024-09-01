@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import generateAndSetCookies from '../utils/generateAndSetCookies.js';
 
 
-export const signupUser =  async (req, res) => {
+export const signupUser = async (req, res) => {
 
     try {
         const { name, username, email, password } = req.body;
@@ -59,19 +59,19 @@ export const signupUser =  async (req, res) => {
 
         await newUser.save()
 
-        if(newUser) {
+        if (newUser) {
 
             generateAndSetCookies(newUser._id, res)
-            res.status(201).json({ 
+            res.status(201).json({
                 _id: newUser._id,
                 name: newUser.name,
                 username: newUser.username,
                 email: newUser.email,
-             })
+            })
         } else {
             res.status(400).json({ message: 'Invalid user data' })
         }
-        
+
 
 
     } catch (error) {
@@ -83,3 +83,34 @@ export const signupUser =  async (req, res) => {
 
 }
 
+
+export const loginUser = async (req, res) => {
+
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) { return res.status(400).json({ message: 'All fields are required' }) }
+
+        const user = await User.findOne({ email })
+
+        if (!user) { return res.status(400).json({ message: 'User does not exist' }) }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password)
+
+        if (!isPasswordCorrect) { return res.status(400).json({ message: 'Invalid credentials' }) }
+
+        // Generate and set cookies
+        generateAndSetCookies(user._id, res)
+
+        res.status(200).json({
+            _id: user._id,
+            name: user.name,
+            username: user.username,
+            email: user.email,
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
+}
