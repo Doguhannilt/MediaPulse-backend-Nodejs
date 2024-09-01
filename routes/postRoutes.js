@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPost, getPost } from '../controller/postController.js'
+import { createPost, deletePost, getPost } from '../controller/postController.js'
 import protectedRoute from '../middlewares/protectedRoute.js'
 
 const router = express.Router()
@@ -9,4 +9,7 @@ router
 
 router
     .get('/:postId', protectedRoute, getPost)
+
+router
+    .delete('/delete/:postId', protectedRoute, deletePost)
 export default router
