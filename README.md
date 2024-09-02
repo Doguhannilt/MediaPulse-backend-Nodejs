@@ -49,6 +49,68 @@ The application uses the following environment variables, which need to be confi
 - `MONGO_URI=`: MongoDB connection URI.
 - `JWT_SECRET=`: Secret key for JWT authentication.
 
+
+# User Management Tests
+
+## Test Files
+
+### `Signup.test.js`
+
+- **Description**: Tests the signup functionality of the application. It includes tests for both valid and invalid signup attempts. The goal is to verify that the application handles user registrations correctly and returns the appropriate status codes for different scenarios.
+  
+- **Tests Included**:
+  - **Invalid Signup**: Submits a signup request with incorrect or incomplete credentials and expects a `400 Bad Request` response.
+  - **Valid Signup**: Submits a signup request with valid credentials and expects a `201 Created` response.
+
+### `Login.test.js`
+
+- **Description**: Tests the login functionality of the application. It includes tests for both successful and unsuccessful login attempts. This ensures that the login process is secure and responds correctly to various input scenarios.
+  
+- **Tests Included**:
+  - **Invalid Login**: Submits a login request with incorrect credentials and expects a `401 Unauthorized` response.
+  - **Valid Login**: Submits a login request with correct credentials and expects a `200 OK` response with an appropriate authentication token or success message.
+
+### `Logout.test.js`
+
+- **Description**: Tests the logout functionality of the application. It ensures that the logout process correctly terminates the user's session and handles logout requests properly.
+  
+- **Tests Included**:
+  - **Successful Logout**: Submits a logout request and expects a `200 OK` response. Verifies that the user session is invalidated and no further requests can be made with the same session.
+
+## Test Notes
+
+- **Testing Framework**: Jest
+  - **Purpose**: Jest is used as the test runner and assertion library. It provides a comprehensive framework for writing, running, and managing tests with built-in support for assertions and mocking.
+
+- **HTTP Assertions**: Supertest
+  - **Purpose**: Supertest is used to make HTTP requests to the application and assert the responses. It is ideal for testing RESTful APIs by simulating real-world interactions and checking how the server responds to different types of requests.
+
+## Setup and Running Tests
+
+1. **Install Dependencies**:
+   Ensure that all necessary dependencies are installed. You can use the following command to install them:
+   ```bash
+   npm install
+   ```
+
+2. **Run Tests**:
+   To execute the tests, use the following command:
+   ```bash
+   npm test
+   ```
+   This will run all the test files and display the results in the terminal.
+
+3. **Configuration**:
+   Make sure that the application server is not running on the same port as specified in the test configuration (default port: `3001`). If needed, adjust the port settings in the test files and environment variables.
+
+## Troubleshooting
+
+- **Port In Use**:
+  If you encounter an `EADDRINUSE` error, it means that the port specified for the test server is already in use. Change the port in the test configuration to an available port and retry.
+
+- **Asynchronous Operations**:
+  Ensure that all asynchronous operations are properly handled. Use `async/await` syntax to manage asynchronous code and avoid issues with unhandled promises or open handles.
+
 ## Structure
 
 Here is the structure of the project:
