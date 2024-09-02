@@ -14,7 +14,7 @@ import cookieParser from 'cookie-parser'
 
 
 // Express Config
-const app = express()
+export const app = express()
 
 
 // Env Config
